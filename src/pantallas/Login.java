@@ -1,10 +1,13 @@
 package pantallas;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
-public class Login {
+public class Login extends JFrame {
     // Lista de usuarios
     private static List<Usuario> usuarios = Arrays.asList(
             new Usuario("administracion", "Administracion", "123"),
@@ -12,46 +15,63 @@ public class Login {
             new Usuario("contabilidad", "Contabilidad", "123"),
             new Usuario("servicio", "Servicio", "123"));
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        Usuario usuarioValido = null;
+    // Componentes de la GUI
+    private JTextField usuarioField;
+    private JPasswordField claveField;
 
-        while (usuarioValido == null) {
-            // Solicitar nombre de usuario
-            System.out.print("Ingrese su nombre de usuario: ");
-            String nombre = scanner.nextLine();
+    public Login() {
+        // Configuración de la ventana
+        setTitle("Login");
+        setSize(300, 150);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // Centra la ventana
 
-            // Solicitar contraseña
-            System.out.print("Ingrese su contraseña: ");
-            String clave = scanner.nextLine();
+        // Crear los componentes de la GUI
+        usuarioField = new JTextField(15);
+        claveField = new JPasswordField(15);
+        JButton loginButton = new JButton("Login");
 
-            // Validar el usuario y contraseña
-            usuarioValido = validarUsuario(nombre, clave);
+        // Añadir un listener al botón de login
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Validar credenciales al hacer clic en el botón
+                String nombre = usuarioField.getText();
+                String clave = new String(claveField.getPassword());
 
-            if (usuarioValido != null) {
-                // Mostrar mensaje de bienvenida si la validación es correcta
-                System.out.println("Bienvenido " + usuarioValido.getNombre());
-            } else {
-                // Mostrar mensaje de error y presentar opciones
-                System.out.println("Usuario o contraseña incorrectos.");
-                System.out.println("1. Intentar de nuevo");
-                System.out.println("2. Salir");
-                System.out.print("Seleccione una opción: ");
+                Usuario usuarioValido = validarUsuario(nombre, clave);
 
-                // Leer opción del menú
-                int opcion = scanner.nextInt();
-                scanner.nextLine(); // Limpiar el buffer
-
-                if (opcion == 2) {
-                    // Salir del programa
-                    System.out.println("Saliendo...");
-                    break;
+                if (usuarioValido != null) {
+                    // Mostrar mensaje de bienvenida si la validación es correcta
+                    JOptionPane.showMessageDialog(null, "Bienvenido " + usuarioValido.getNombre());
+                } else {
+                    // Mostrar mensaje de error si el login falla
+                    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
-        }
+        });
 
-        // Cerrar el scanner
-        scanner.close();
+        // Crear el layout de la ventana
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+
+        // Añadir componentes a la ventana
+        add(new JLabel("Usuario:"), gbc);
+        gbc.gridx = 1;
+        add(usuarioField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        add(new JLabel("Contraseña:"), gbc);
+        gbc.gridx = 1;
+        add(claveField, gbc);
+
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        add(loginButton, gbc);
     }
 
     // Función para validar si el nombre y la contraseña son correctos
@@ -62,5 +82,15 @@ public class Login {
             }
         }
         return null; // Retorna null si no se encuentra un usuario válido
+    }
+
+    public static void main(String[] args) {
+        // Crear y mostrar la ventana de login
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Login().setVisible(true);
+            }
+        });
     }
 }
