@@ -1,40 +1,53 @@
 package pantallas;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Login {
     // Lista de usuarios
-    private static List<Usuario> usuarios = new ArrayList<>();
+    private static List<Usuario> usuarios = Arrays.asList(
+            new Usuario("administracion", "Administracion", "123"),
+            new Usuario("ventas", "Ventas", "123"),
+            new Usuario("contabilidad", "Contabilidad", "123"),
+            new Usuario("servicio", "Servicio", "123"));
 
     public static void main(String[] args) {
-        // Inicializar usuarios con nombre, departamento y contraseña
-        usuarios.add(new Usuario("administracion", "Administracion", "123"));
-        usuarios.add(new Usuario("ventas", "Ventas", "123"));
-        usuarios.add(new Usuario("contabilidad", "Contabilidad", "123"));
-        usuarios.add(new Usuario("servicio", "Servicio", "123"));
-
-        // Crear un Scanner para obtener la entrada del usuario
         Scanner scanner = new Scanner(System.in);
+        Usuario usuarioValido = null;
 
-        // Solicitar nombre de usuario
-        System.out.print("Ingrese su nombre de usuario: ");
-        String nombre = scanner.nextLine();
+        while (usuarioValido == null) {
+            // Solicitar nombre de usuario
+            System.out.print("Ingrese su nombre de usuario: ");
+            String nombre = scanner.nextLine();
 
-        // Solicitar contraseña
-        System.out.print("Ingrese su contraseña: ");
-        String clave = scanner.nextLine();
+            // Solicitar contraseña
+            System.out.print("Ingrese su contraseña: ");
+            String clave = scanner.nextLine();
 
-        // Validar el usuario y contraseña
-        Usuario usuarioValido = validarUsuario(nombre, clave);
+            // Validar el usuario y contraseña
+            usuarioValido = validarUsuario(nombre, clave);
 
-        if (usuarioValido != null) {
-            // Mostrar mensaje de bienvenida si la validación es correcta
-            System.out.println("Bienvenido " + usuarioValido.getNombre());
-        } else {
-            // Mostrar mensaje de error si la validación falla
-            System.out.println("Usuario o contraseña incorrectos.");
+            if (usuarioValido != null) {
+                // Mostrar mensaje de bienvenida si la validación es correcta
+                System.out.println("Bienvenido " + usuarioValido.getNombre());
+            } else {
+                // Mostrar mensaje de error y presentar opciones
+                System.out.println("Usuario o contraseña incorrectos.");
+                System.out.println("1. Intentar de nuevo");
+                System.out.println("2. Salir");
+                System.out.print("Seleccione una opción: ");
+
+                // Leer opción del menú
+                int opcion = scanner.nextInt();
+                scanner.nextLine(); // Limpiar el buffer
+
+                if (opcion == 2) {
+                    // Salir del programa
+                    System.out.println("Saliendo...");
+                    break;
+                }
+            }
         }
 
         // Cerrar el scanner
