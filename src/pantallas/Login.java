@@ -26,6 +26,10 @@ public class Login extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centrar la ventana
 
+        // Colocar el icono en la ventana
+        ImageIcon icono = new ImageIcon("src/assets/icono.png");
+        setIconImage(icono.getImage());
+
         // Crear panel de fondo con la imagen
         FondoPanel fondoPanel = new FondoPanel("src/assets/login.jpg");
         fondoPanel.setLayout(new GridBagLayout()); // Centrar componentes
