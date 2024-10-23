@@ -96,14 +96,17 @@ public class Login extends JFrame {
 
                 Usuario usuarioValido = validarUsuario(nombre, clave);
 
-                if (usuarioValido != null) {
-                    // Mostrar mensaje de bienvenida si la validación es correcta
-                    JOptionPane.showMessageDialog(null, "Bienvenido " + usuarioValido.getNombre());
-                } else {
-                    // Mostrar mensaje de error si el login falla
-                    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
+                mostrarMensaje(usuarioValido);
+                // if (usuarioValido != null) {
+                // // Mostrar mensaje de bienvenida si la validación es correcta
+                // JOptionPane.showMessageDialog(null, "Bienvenido " +
+                // usuarioValido.getNombre());
+                // } else {
+                // // Mostrar mensaje de error si el login falla
+                // JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos",
+                // "Error",
+                // JOptionPane.ERROR_MESSAGE);
+                // }
             }
         });
 
@@ -119,6 +122,41 @@ public class Login extends JFrame {
             }
         }
         return null; // Retorna null si no se encuentra un usuario válido
+    }
+
+    public void mostrarMensaje(Usuario usuario) {
+        // Colocar el icono en la ventana
+        ImageIcon icono = new ImageIcon("src/assets/icono.png");
+
+        // Crear el mensaje a mostrar
+        String mensaje;
+        if (usuario != null) {
+            mensaje = "Bienvenido: " + usuario.getNombre();
+        } else {
+            mensaje = "Usuario o contraseña incorrectos.";
+        }
+
+        // Crear un JLabel con la fuente deseada
+        JLabel mensajeLabel = new JLabel(mensaje);
+        mensajeLabel.setFont(new Font("Ink Free", Font.PLAIN, 16)); // Cambiar tamaño y estilo de la fuente
+        mensajeLabel.setHorizontalAlignment(SwingConstants.CENTER); // Centrar el texto
+
+        // Crear un panel para contener el JLabel
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(mensajeLabel, BorderLayout.CENTER); // Añadir el JLabel al panel
+
+        // Crear un JOptionPane para usar en el JDialog
+        JOptionPane optionPane = new JOptionPane(panel,
+                usuario != null ? JOptionPane.PLAIN_MESSAGE : JOptionPane.ERROR_MESSAGE);
+
+        // Crear un JDialog a partir del JOptionPane
+        JDialog dialog = optionPane.createDialog("Información");
+
+        // Establecer el icono de la barra de título
+        dialog.setIconImage(icono.getImage());
+
+        // Mostrar el diálogo
+        dialog.setVisible(true);
     }
 
     // Clase personalizada para el panel de fondo
