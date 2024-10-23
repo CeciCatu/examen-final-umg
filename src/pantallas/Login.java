@@ -19,24 +19,68 @@ public class Login extends JFrame {
             new Usuario("contabilidad", "Contabilidad", "123"),
             new Usuario("servicio", "Servicio", "123"));
 
-    // Componentes de la GUI
-    private JTextField usuarioField;
-    private JPasswordField claveField;
-
     public Login() {
         // Configuración de la ventana
         setTitle("Login");
-        setExtendedState(JFrame.MAXIMIZED_BOTH); // Maximizar la ventana
+        setSize(500, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // Centrar la ventana
 
         // Crear panel de fondo con la imagen
         FondoPanel fondoPanel = new FondoPanel("src/assets/login.jpg");
         fondoPanel.setLayout(new GridBagLayout()); // Centrar componentes
 
-        // Crear los componentes de la GUI
-        usuarioField = new JTextField(15);
-        claveField = new JPasswordField(15);
+        // Crear los componentes
+        JLabel usuarioLabel = new JLabel("Usuario:");
+        JTextField usuarioField = new JTextField(20);
+
+        JLabel contrasenaLabel = new JLabel("Contraseña:");
+        JPasswordField contrasenaField = new JPasswordField(20);
+
         JButton loginButton = new JButton("Ingresar");
+
+        // Crear el layout para los componentes
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5); // Espacio entre componentes
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Expandir campos horizontalmente
+        gbc.anchor = GridBagConstraints.WEST; // Alinear a la izquierda
+
+        // Añadir el campo "Usuario"
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        fondoPanel.add(usuarioLabel, gbc);
+        usuarioLabel.setFont(new Font("Ink Free", Font.PLAIN, 14)); // Cambiar el tamaño de la fuente
+
+        gbc.gridy = 1;
+        fondoPanel.add(usuarioField, gbc);
+        usuarioField.setOpaque(false); // Hacer que el fondo sea transparente
+        usuarioField.setFont(new Font("Ink Free", Font.PLAIN, 14)); // Cambiar el tamaño de la fuente
+
+        // Añadir el campo "Contraseña"
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        fondoPanel.add(contrasenaLabel, gbc);
+        contrasenaLabel.setFont(new Font("Ink Free", Font.PLAIN, 14)); // Cambiar el tamaño de la fuente
+
+        gbc.gridy = 3;
+        fondoPanel.add(contrasenaField, gbc);
+        contrasenaField.setOpaque(false); // Hacer que el fondo sea transparente
+        contrasenaField.setFont(new Font("Ink Free", Font.PLAIN, 14)); // Cambiar el tamaño de la fuente
+
+        // Ajustar el estilo de los campos de texto
+        usuarioField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.GRAY),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        contrasenaField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.GRAY),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+        gbc.gridy = 4;
+        fondoPanel.add(loginButton, gbc);
+        loginButton.setFont(new Font("Ink Free", Font.PLAIN, 14)); // Cambiar el tamaño de la fuente
+
+        // Añadir el panel al JFrame
+        add(fondoPanel);
 
         // Añadir un listener al botón de login
         loginButton.addActionListener(new ActionListener() {
@@ -44,7 +88,7 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Validar credenciales al hacer clic en el botón
                 String nombre = usuarioField.getText();
-                String clave = new String(claveField.getPassword());
+                String clave = new String(contrasenaField.getPassword());
 
                 Usuario usuarioValido = validarUsuario(nombre, clave);
 
@@ -58,37 +102,6 @@ public class Login extends JFrame {
                 }
             }
         });
-
-        // Crear el layout para los componentes
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(5, 5, 15, 5); // Espacio entre componentes
-
-        // Añadir componentes al panel
-        fondoPanel.add(new JLabel("Usuario:"), gbc);
-        gbc.gridx = 1;
-        fondoPanel.add(usuarioField, gbc);
-
-        // Configurar usuarioField (campo de texto)
-        usuarioField.setOpaque(false); // Hacer que el fondo sea transparente
-        usuarioField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY), // Borde inferior blanco
-                BorderFactory.createEmptyBorder(5, 5, 5, 5) // Relleno de 5 píxeles
-        ));// Borde inferior blanco
-           // usuarioField.setForeground(Color.WHITE); // Color del texto
-        usuarioField.setPreferredSize(new Dimension(200, 30)); // Definir tamaño preferido (más alto)
-        usuarioField.setFont(new Font("Papyrus", Font.PLAIN, 14)); // Cambiar el tamaño de la fuente
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        fondoPanel.add(new JLabel("Contraseña:"), gbc);
-        gbc.gridx = 1;
-        fondoPanel.add(claveField, gbc);
-
-        gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        fondoPanel.add(loginButton, gbc);
 
         // Añadir el panel de fondo a la ventana
         setContentPane(fondoPanel);

@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "FormularioLogin",
+            "request": "launch",
+            "mainClass": "pantallas.FormularioLogin",
+            "projectName": "examen-final-umg_a6a89f04"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
