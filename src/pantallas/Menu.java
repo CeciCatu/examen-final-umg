@@ -130,13 +130,4 @@ public class Menu extends JFrame {
         setVisible(true);
     }
 
-    // public static void main(String[] args) {
-    // // Crear y mostrar el menú
-    // SwingUtilities.invokeLater(new Runnable() {
-    // @Override
-    // public void run() {
-    // new Menu().setVisible(true);
-    // }
-    // });
-    // }
 }

@@ -96,7 +96,9 @@ public class Login extends JFrame {
 
                     String mensaje = "Usuario o contraseña incorrectos.";
 
-                    new Notificacion().mensaje(mensaje);
+                    new Notificacion();
+
+                    Notificacion.mensaje(mensaje);
                     return;
                 }
                 dispose(); // Cierra la ventana actual
