@@ -1,22 +1,15 @@
 package pantallas;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.GridBagLayout;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Menu extends JFrame {
 
     public Menu() {
         // Configuración de la ventana
-        setTitle("Login");
+        setTitle("Menú Principal");
         setSize(500, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centrar la ventana
@@ -29,57 +22,118 @@ public class Menu extends JFrame {
         FondoPanel fondoPanel = new FondoPanel("src/assets/login.jpg");
         fondoPanel.setLayout(new GridBagLayout()); // Centrar componentes
 
+        // Crear el label "Menú"
+        JLabel menuLabel = new JLabel("Menú");
+        menuLabel.setFont(new Font("Ink Free", Font.PLAIN, 24)); // Usar la misma fuente que en el login
+        menuLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Crear los botones
+        JButton verProductosButton = new JButton("Ver productos");
+        JButton ingresarProductosButton = new JButton("Ingresar productos");
+        JButton buscarProductoButton = new JButton("Buscar producto");
+        JButton modificarProductoButton = new JButton("Modificar producto");
+        JButton eliminarProductoButton = new JButton("Eliminar producto");
+        JButton salirButton = new JButton("Salir del menú");
+
+        // Cambiar el estilo de los botones
+        verProductosButton.setFont(new Font("Ink Free", Font.PLAIN, 16));
+        ingresarProductosButton.setFont(new Font("Ink Free", Font.PLAIN, 16));
+        buscarProductoButton.setFont(new Font("Ink Free", Font.PLAIN, 16));
+        modificarProductoButton.setFont(new Font("Ink Free", Font.PLAIN, 16));
+        eliminarProductoButton.setFont(new Font("Ink Free", Font.PLAIN, 16));
+        salirButton.setFont(new Font("Ink Free", Font.PLAIN, 16));
+
+        // Configurar el layout
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10); // Espacio entre componentes
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Añadir el label "Menú" al panel
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        fondoPanel.add(menuLabel, gbc);
+
+        // Añadir los botones al panel
+        gbc.gridwidth = 1;
+        gbc.gridy = 3;
+        fondoPanel.add(verProductosButton, gbc);
+        gbc.gridy = 4;
+        fondoPanel.add(ingresarProductosButton, gbc);
+        gbc.gridy = 5;
+        fondoPanel.add(buscarProductoButton, gbc);
+        gbc.gridy = 6;
+        fondoPanel.add(modificarProductoButton, gbc);
+        gbc.gridy = 7;
+        fondoPanel.add(eliminarProductoButton, gbc);
+        gbc.gridy = 8;
+        fondoPanel.add(salirButton, gbc);
+
+        // Añadir el panel al JFrame
+        add(fondoPanel);
+
+        // Acciones para los botones
+        verProductosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir la clase VerProductos
+                new Mostrar().setVisible(true);
+                dispose(); // Cerrar el menú actual
+            }
+        });
+
+        ingresarProductosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir la clase IngresarProductos
+                new Ingresar().setVisible(true);
+                dispose(); // Cerrar el menú actual
+            }
+        });
+
+        buscarProductoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir la clase BuscarProducto
+                new Buscar().setVisible(true);
+                dispose(); // Cerrar el menú actual
+            }
+        });
+
+        modificarProductoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir la clase ModificarProducto
+                new Modificar().setVisible(true);
+                dispose(); // Cerrar el menú actual
+            }
+        });
+
+        eliminarProductoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir la clase EliminarProducto
+                new Eliminar().setVisible(true);
+                dispose(); // Cerrar el menú actual
+            }
+        });
+
+        salirButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Salir del programa
+                System.exit(0);
+            }
+        });
     }
 
-    // Clase personalizada para el panel de fondo
-    class FondoPanel extends JPanel {
-        private BufferedImage imagen;
-
-        public FondoPanel(String rutaImagen) {
-            try {
-                imagen = ImageIO.read(new File(rutaImagen));
-            } catch (IOException e) {
-                System.err.println("Error al cargar la imagen de fondo: " + e.getMessage());
+    public static void main(String[] args) {
+        // Crear y mostrar el menú
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Menu().setVisible(true);
             }
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            // Establecer color de fondo negro
-            g.setColor(Color.BLACK);
-            g.fillRect(0, 0, getWidth(), getHeight());
-
-            if (imagen != null) {
-                // Calcular proporciones para centrar la imagen sin estirarla
-                int imagenAncho = imagen.getWidth();
-                int imagenAlto = imagen.getHeight();
-                double imagenAspecto = (double) imagenAncho / imagenAlto;
-
-                int panelAncho = getWidth();
-                int panelAlto = getHeight();
-                double panelAspecto = (double) panelAncho / panelAlto;
-
-                int nuevoAncho, nuevoAlto;
-
-                // Ajustar la imagen para que mantenga su aspecto
-                if (panelAspecto > imagenAspecto) {
-                    nuevoAlto = panelAlto;
-                    nuevoAncho = (int) (nuevoAlto * imagenAspecto);
-                } else {
-                    nuevoAncho = panelAncho;
-                    nuevoAlto = (int) (nuevoAncho / imagenAspecto);
-                }
-
-                // Calcular las coordenadas para centrar la imagen
-                int x = (panelAncho - nuevoAncho) / 2;
-                int y = (panelAlto - nuevoAlto) / 2;
-
-                // Dibujar la imagen centrada con el tamaño calculado
-                g.drawImage(imagen, x, y, nuevoAncho, nuevoAlto, this);
-            }
-        }
+        });
     }
-
 }

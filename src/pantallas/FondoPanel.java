@@ -1,16 +1,13 @@
 package pantallas;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
-// Clase personalizada para el panel de fondo
-class FondoPanel extends JPanel {
+public class FondoPanel extends JPanel {
     private BufferedImage imagen;
 
     public FondoPanel(String rutaImagen) {
