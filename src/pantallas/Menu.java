@@ -125,15 +125,18 @@ public class Menu extends JFrame {
                 System.exit(0);
             }
         });
+
+        // Hacer visible la ventana
+        setVisible(true);
     }
 
-    public static void main(String[] args) {
-        // Crear y mostrar el menú
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Menu().setVisible(true);
-            }
-        });
-    }
+    // public static void main(String[] args) {
+    // // Crear y mostrar el menú
+    // SwingUtilities.invokeLater(new Runnable() {
+    // @Override
+    // public void run() {
+    // new Menu().setVisible(true);
+    // }
+    // });
+    // }
 }

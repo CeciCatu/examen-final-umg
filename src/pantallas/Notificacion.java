@@ -6,7 +6,7 @@ import java.awt.*;
 public class Notificacion {
 
     // Función para mostrar un mensaje personalizado
-    public static void mensaje(String mensaje) {
+    public void mensaje(String mensaje) {
         // Colocar el icono en la ventana
         ImageIcon icono = new ImageIcon("src/assets/icono.png"); // Cambia la ruta por la ubicación de tu icono
 

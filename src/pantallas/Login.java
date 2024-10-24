@@ -92,7 +92,15 @@ public class Login extends JFrame {
 
                 Usuario usuarioValido = validarUsuario(nombre, clave);
 
-                mostrarMensaje(usuarioValido);
+                if (usuarioValido == null) {
+
+                    String mensaje = "Usuario o contraseña incorrectos.";
+
+                    new Notificacion().mensaje(mensaje);
+                    return;
+                }
+                dispose(); // Cierra la ventana actual
+                new Menu(); // Abre la nueva ventana
             }
         });
 
