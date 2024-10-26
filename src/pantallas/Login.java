@@ -1,9 +1,14 @@
 package pantallas;
 
 import javax.swing.*;
+
+import config.Conexion;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -82,27 +87,56 @@ public class Login extends JFrame {
         // Añadir el panel al JFrame
         add(fondoPanel);
 
-        // Añadir un listener al botón de login
+        // // Añadir un listener al botón de login
+        // loginButton.addActionListener(new ActionListener() {
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // // Validar credenciales al hacer clic en el botón
+        // String nombre = usuarioField.getText();
+        // String clave = new String(contrasenaField.getPassword());
+
+        // Usuario usuarioValido = validarUsuario(nombre, clave);
+
+        // if (usuarioValido == null) {
+
+        // String mensaje = "Usuario o contraseña incorrectos.";
+
+        // new Notificacion();
+
+        // Notificacion.mensaje(mensaje);
+        // return;
+        // }
+        // dispose(); // Cierra la ventana actual
+        // new Menu(); // Abre la nueva ventana
+        // }
+        // });
+
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Validar credenciales al hacer clic en el botón
+                // Intentar conectarse a la base de datos antes de validar credenciales
+                if (!verificarConexionBD()) {
+                    JOptionPane.showMessageDialog(Login.this,
+                            "Error al conectar con la base de datos.",
+                            "Error de conexión",
+                            JOptionPane.ERROR_MESSAGE);
+                    return; // Detiene el proceso si no hay conexión
+                }
+
+                // Continuar con la validación de usuario
                 String nombre = usuarioField.getText();
                 String clave = new String(contrasenaField.getPassword());
-
                 Usuario usuarioValido = validarUsuario(nombre, clave);
 
                 if (usuarioValido == null) {
-
-                    String mensaje = "Usuario o contraseña incorrectos.";
-
-                    new Notificacion();
-
-                    Notificacion.mensaje(mensaje);
-                    return;
+                    JOptionPane.showMessageDialog(Login.this,
+                            "Usuario o contraseña incorrectos.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                } else {
+                    dispose(); // Cierra la ventana actual
+                    new Menu(); // Abre la nueva ventana
                 }
-                dispose(); // Cierra la ventana actual
-                new Menu(); // Abre la nueva ventana
             }
         });
 
@@ -164,4 +198,17 @@ public class Login extends JFrame {
             }
         });
     }
+
+    private boolean verificarConexionBD() {
+        try (Connection conexion = Conexion.getConnection()) {
+            if (conexion != null && !conexion.isClosed()) {
+                System.out.println("Conexión exitosa a la base de datos.");
+                return true; // Conexión exitosa
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al conectar con la base de datos: " + e.getMessage());
+        }
+        return false; // Conexión fallida
+    }
+
 }
