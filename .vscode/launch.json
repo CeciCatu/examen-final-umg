@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Conection",
+            "request": "launch",
+            "mainClass": "config.Conection",
+            "projectName": "examen-final-umg_7f47d248"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "examen-final-umg_7f47d248"
+        },
+        {
+            "type": "java",
+            "name": "Login",
+            "request": "launch",
+            "mainClass": "pantallas.Login",
+            "projectName": "examen-final-umg_7f47d248"
+        },
+        {
+            "type": "java",
             "name": "Menu",
             "request": "launch",
             "mainClass": "pantallas.Menu",

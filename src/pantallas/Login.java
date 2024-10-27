@@ -1,9 +1,14 @@
 package pantallas;
 
 import javax.swing.*;
+
+import config.Conexion;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -101,6 +106,10 @@ public class Login extends JFrame {
                     Notificacion.mensaje(mensaje);
                     return;
                 }
+
+                // Verifucar la conexion
+                validarConexionBD();
+
                 dispose(); // Cierra la ventana actual
                 new Menu(); // Abre la nueva ventana
             }
@@ -164,4 +173,18 @@ public class Login extends JFrame {
             }
         });
     }
+
+    private boolean validarConexionBD() {
+        try (Connection conexion = Conexion.getConnection()) {
+            if (conexion != null && !conexion.isClosed()) {
+                // System.out.println("Conexión exitosa a la base de datos.");
+                return true; // Conexión exitosa
+            }
+        } catch (SQLException e) {
+            // System.err.println("Error al conectar con la base de datos: " +
+            // e.getMessage());
+        }
+        return false; // Conexión fallida
+    }
+
 }
