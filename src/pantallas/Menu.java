@@ -77,7 +77,7 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Abrir la clase VerProductos
-                new Mostrar().setVisible(true);
+                new Products().setVisible(true);
                 dispose(); // Cerrar el menú actual
             }
         });

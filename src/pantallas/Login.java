@@ -2,7 +2,7 @@ package pantallas;
 
 import javax.swing.*;
 
-import config.Conexion;
+import config.Conection;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -175,7 +175,7 @@ public class Login extends JFrame {
     }
 
     private boolean validarConexionBD() {
-        try (Connection conexion = Conexion.getConnection()) {
+        try (Connection conexion = Conection.getConnection()) {
             if (conexion != null && !conexion.isClosed()) {
                 // System.out.println("Conexión exitosa a la base de datos.");
                 return true; // Conexión exitosa
