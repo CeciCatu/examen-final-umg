@@ -103,11 +103,25 @@ public class Menu extends JFrame {
         modificarProductoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Abrir la clase ModificarProducto
-                new Modificar().setVisible(true);
-                dispose(); // Cerrar el menú actual
+                try {
+                    new UpdateProduct().setVisible(true);
+                    dispose(); // Cerrar el menú actual
+                    System.out.println("Ventana UpdateProduct abierta"); // Mensaje para verificar
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error al abrir la ventana: " + ex.getMessage());
+                }
             }
         });
+
+        // modificarProductoButton.addActionListener(new ActionListener() {
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // // Abrir la clase ModificarProducto
+        // new UpdateProduct().setVisible(true);
+        // dispose(); // Cerrar el menú actual
+        // }
+        // });
 
         eliminarProductoButton.addActionListener(new ActionListener() {
             @Override
