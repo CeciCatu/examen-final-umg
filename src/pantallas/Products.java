@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import config.Conection;
 
@@ -22,7 +23,7 @@ public class Products extends JFrame {
         public Products() {
                 // Configuración de la ventana
                 setTitle("Productos");
-                setSize(1000, 600);
+                setSize(1000, 500);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 setLocationRelativeTo(null);
 
@@ -54,9 +55,40 @@ public class Products extends JFrame {
                 modelo = new DefaultTableModel(new Object[][] {}, new String[] {
                                 "Codigo", "Descripcion", "Precio Unitario", "Cantidad", "Total"
                 });
-                
+
                 tabla = new JTable(modelo);
                 JScrollPane scrollPane = new JScrollPane(tabla);
+                scrollPane.setOpaque(false); // Hace transparente el JScrollPane
+                scrollPane.getViewport().setOpaque(false); // Hace transparente el área del Viewport
+
+                // Ajusta la altura del JScrollPane
+                scrollPane.setPreferredSize(new Dimension(scrollPane.getWidth(), 200));
+                tabla.setRowHeight(20); // Ajusta la altura de cada fila de la tabla
+                tabla.setBackground(Color.WHITE); // Cambia Color.WHITE por otro color si lo prefieres
+                tabla.setOpaque(false); // Hace la tabla transparente
+                tabla.setBackground(null); // Quita el color de fondo de la tabla
+
+                tabla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+                        @Override
+                        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                        boolean hasFocus, int row, int column) {
+                                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus,
+                                                row, column);
+                                cell.setBackground(new Color(100, 100, 100, 150)); // Gris oscuro con mayor opacidad
+                                // Cambia el color del texto a blanco o a un color claro
+                                cell.setForeground(Color.WHITE);
+
+                                // Cambia el tipo y tamaño de fuente y tamaño 14
+                                cell.setFont(new Font("Britannic Bold", Font.PLAIN, 16));
+
+                                // Alinea el texto al centro
+                                if (cell instanceof JLabel) {
+                                        ((JLabel) cell).setHorizontalAlignment(JLabel.LEFT);
+                                }
+
+                                return cell;
+                        }
+                });
 
                 // Layout para los componentes
                 GridBagConstraints gbc = new GridBagConstraints();
