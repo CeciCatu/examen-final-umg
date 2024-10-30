@@ -45,11 +45,41 @@ public class Products extends JFrame {
         private void initComponents(JPanel fondoPanel) {
                 // Crear y configurar componentes
                 btnBack = new JButton("Regresar");
-                lblCount = new JLabel("0");
-                lblTotal = new JLabel("0");
+                btnBack.setFont(new Font("Ink Free", Font.PLAIN, 14));
+
+                lblCount = new JLabel("10"); // Ejemplo de valor inicial
+                lblCount.setFont(new Font("Ink Free", Font.PLAIN, 14));
+                lblTotal = new JLabel("10"); // Ejemplo de valor inicial
+                lblTotal.setFont(new Font("Ink Free", Font.PLAIN, 14));
 
                 JLabel lblRegistros = new JLabel("Registros:");
+                lblRegistros.setFont(new Font("Ink Free", Font.PLAIN, 14));
                 JLabel lblGranTotal = new JLabel("Gran Total:");
+                lblGranTotal.setFont(new Font("Ink Free", Font.PLAIN, 14));
+
+                // Panel para el botón "Regresar"
+                JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                backPanel.setBackground(Color.WHITE);
+                backPanel.add(btnBack);
+
+                // Panel para "Registros" y "Gran Total" en una sola fila
+                JPanel totalsPanel = new JPanel(new BorderLayout());
+                totalsPanel.setBackground(Color.WHITE);
+
+                // Crear paneles para alinear los textos en los extremos
+                JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                leftPanel.setBackground(Color.WHITE);
+                leftPanel.add(lblRegistros);
+                leftPanel.add(lblCount);
+
+                JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+                rightPanel.setBackground(Color.WHITE);
+                rightPanel.add(lblGranTotal);
+                rightPanel.add(lblTotal);
+
+                // Añadir los paneles izquierdo y derecho al totalsPanel
+                totalsPanel.add(leftPanel, BorderLayout.WEST);
+                totalsPanel.add(rightPanel, BorderLayout.EAST);
 
                 // Configuración de la tabla
                 modelo = new DefaultTableModel(new Object[][] {}, new String[] {
@@ -57,16 +87,18 @@ public class Products extends JFrame {
                 });
 
                 tabla = new JTable(modelo);
+                tabla.setFont(new Font("Ink Free", Font.PLAIN, 14));
                 JScrollPane scrollPane = new JScrollPane(tabla);
-                scrollPane.setOpaque(false); // Hace transparente el JScrollPane
-                scrollPane.getViewport().setOpaque(false); // Hace transparente el área del Viewport
+                // Opcional: Establecer la fuente del encabezado de la tabla (Header)
+                tabla.getTableHeader().setFont(new Font("Ink Free", Font.BOLD, 16));
 
-                // Ajusta la altura del JScrollPane
+                scrollPane.setOpaque(false);
+                scrollPane.getViewport().setOpaque(false);
                 scrollPane.setPreferredSize(new Dimension(scrollPane.getWidth(), 200));
-                tabla.setRowHeight(20); // Ajusta la altura de cada fila de la tabla
-                tabla.setBackground(Color.WHITE); // Cambia Color.WHITE por otro color si lo prefieres
-                tabla.setOpaque(false); // Hace la tabla transparente
-                tabla.setBackground(null); // Quita el color de fondo de la tabla
+                tabla.setRowHeight(20);
+                tabla.setBackground(Color.WHITE);
+                tabla.setOpaque(false);
+                tabla.setBackground(null);
 
                 tabla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
                         @Override
@@ -74,14 +106,10 @@ public class Products extends JFrame {
                                         boolean hasFocus, int row, int column) {
                                 Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus,
                                                 row, column);
-                                cell.setBackground(new Color(100, 100, 100, 150)); // Gris oscuro con mayor opacidad
-                                // Cambia el color del texto a blanco o a un color claro
+                                cell.setBackground(new Color(100, 100, 100, 150));
                                 cell.setForeground(Color.WHITE);
+                                cell.setFont(new Font("Arial", Font.PLAIN, 16));
 
-                                // Cambia el tipo y tamaño de fuente y tamaño 14
-                                cell.setFont(new Font("Britannic Bold", Font.PLAIN, 16));
-
-                                // Alinea el texto al centro
                                 if (cell instanceof JLabel) {
                                         ((JLabel) cell).setHorizontalAlignment(JLabel.LEFT);
                                 }
@@ -96,27 +124,21 @@ public class Products extends JFrame {
                 gbc.fill = GridBagConstraints.HORIZONTAL;
                 gbc.anchor = GridBagConstraints.CENTER;
 
-                // Agregar botón "Regresar"
+                // Agregar backPanel con el botón "Regresar"
                 gbc.gridx = 0;
                 gbc.gridy = 0;
-                fondoPanel.add(btnBack, gbc);
+                gbc.gridwidth = 2;
+                fondoPanel.add(backPanel, gbc);
 
-                // Agregar contador de registros
-                gbc.gridy = 1;
-                fondoPanel.add(lblRegistros, gbc);
-                gbc.gridx = 1;
-                fondoPanel.add(lblCount, gbc);
-
-                // Agregar total
+                // Agregar totalsPanel con "Registros" y "Gran Total" alineados a los extremos
                 gbc.gridx = 0;
-                gbc.gridy = 2;
-                fondoPanel.add(lblGranTotal, gbc);
-                gbc.gridx = 1;
-                fondoPanel.add(lblTotal, gbc);
+                gbc.gridy = 1;
+                gbc.gridwidth = 2;
+                fondoPanel.add(totalsPanel, gbc);
 
                 // Agregar tabla con scroll
                 gbc.gridx = 0;
-                gbc.gridy = 3;
+                gbc.gridy = 2;
                 gbc.gridwidth = 2;
                 gbc.fill = GridBagConstraints.BOTH;
                 gbc.weightx = 1.0;
