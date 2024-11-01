@@ -12,148 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Ingresar extends JFrame {
-    // private JTextField codigoField;
-    // private JTextField nombreField;
-    // private JTextField precioField;
-    // private JTextField cantidadField;
-    // private JComboBox<String> mesCombo;
-    // private JComboBox<Integer> anioCombo;
-    // private JButton btnBack;
-
-    // // Declarar la variable de instancia
-    // private int currentYear;
-
-    // public Ingresar() {
-    // btnBack = new JButton("Regresar");
-    // btnBack.setFont(new Font("Ink Free", Font.PLAIN, 14));
-    // // Obtener el año actual
-    // currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-
-    // // Configuración de la ventana
-    // setTitle("Ingresar Producto");
-    // setSize(1000, 500);
-    // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    // setLocationRelativeTo(null); // Centrar la ventana
-
-    // // Colocar el icono en la ventana
-    // ImageIcon icono = new ImageIcon("src/assets/icono.png");
-    // setIconImage(icono.getImage());
-
-    // // Crear panel de fondo con la imagen
-    // FondoPanel fondoPanel = new FondoPanel("src/assets/rosita.png");
-    // fondoPanel.setLayout(new GridBagLayout()); // Centrar componentes
-
-    // // Panel para el botón "Regresar" con fondo transparente
-    // JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    // backPanel.setOpaque(false); // Fondo transparente
-    // backPanel.add(btnBack);
-
-    // // Crear etiquetas y campos de texto
-    // JLabel codigoLabel = new JLabel("Código Producto:");
-    // codigoField = new JTextField(20);
-
-    // JLabel nombreLabel = new JLabel("Nombre Producto:");
-    // nombreField = new JTextField(20);
-
-    // JLabel precioLabel = new JLabel("Precio Unitario:");
-    // precioField = new JTextField(20);
-
-    // JLabel cantidadLabel = new JLabel("Cantidad Producto:");
-    // cantidadField = new JTextField(20);
-
-    // JLabel fechaVencimientoLabel = new JLabel("Fecha Vencimiento:");
-
-    // // ComboBox para el mes
-    // String[] meses = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-    // "Julio", "Agosto", "Septiembre",
-    // "Octubre", "Noviembre", "Diciembre" };
-    // mesCombo = new JComboBox<>(meses);
-
-    // // ComboBox para el año
-    // Integer[] anios = new Integer[21]; // Por ejemplo, del año actual hasta 20
-    // años adelante
-    // int currentYear =
-    // java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-    // for (int i = 0; i < anios.length; i++) {
-    // anios[i] = currentYear + i;
-    // }
-    // anioCombo = new JComboBox<>(anios);
-
-    // // Botón para agregar producto
-    // JButton agregarButton = new JButton("Agregar Producto");
-    // agregarButton.addActionListener(new ActionListener() {
-    // @Override
-    // public void actionPerformed(ActionEvent e) {
-    // agregarProducto();
-    // }
-    // });
-
-    // // Añadir componentes al panel
-    // // GridBagConstraints gbc = new GridBagConstraints();
-    // GridBagConstraints gbc = new GridBagConstraints();
-    // gbc.insets = new Insets(5, 5, 5, 5);
-    // gbc.fill = GridBagConstraints.HORIZONTAL;
-    // gbc.anchor = GridBagConstraints.WEST;
-
-    // // Agregar backPanel con el botón "Regresar"
-    // gbc.gridx = 0;
-    // gbc.gridy = 0;
-    // gbc.gridwidth = 2;
-    // fondoPanel.add(backPanel, gbc);
-
-    // gbc.gridx = 0;
-    // gbc.gridy = 0;
-    // fondoPanel.add(codigoLabel, gbc);
-    // gbc.gridx = 1;
-    // fondoPanel.add(codigoField, gbc);
-
-    // gbc.gridx = 0;
-    // gbc.gridy = 1;
-    // fondoPanel.add(nombreLabel, gbc);
-    // gbc.gridx = 1;
-    // fondoPanel.add(nombreField, gbc);
-
-    // gbc.gridx = 0;
-    // gbc.gridy = 2;
-    // fondoPanel.add(precioLabel, gbc);
-    // gbc.gridx = 1;
-    // fondoPanel.add(precioField, gbc);
-
-    // gbc.gridx = 0;
-    // gbc.gridy = 3;
-    // fondoPanel.add(cantidadLabel, gbc);
-    // gbc.gridx = 1;
-    // fondoPanel.add(cantidadField, gbc);
-
-    // gbc.gridx = 0;
-    // gbc.gridy = 4;
-    // fondoPanel.add(fechaVencimientoLabel, gbc);
-
-    // gbc.gridx = 1;
-    // JPanel fechaPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    // fechaPanel.add(mesCombo);
-    // fechaPanel.add(anioCombo);
-    // fondoPanel.add(fechaPanel, gbc);
-
-    // gbc.gridx = 0;
-    // gbc.gridy = 5;
-    // gbc.gridwidth = 2; // Para que el botón ocupe dos columnas
-    // fondoPanel.add(agregarButton, gbc);
-
-    // // Añadir el panel al JFrame
-    // add(fondoPanel);
-
-    // // Añadir acción al botón "Regresar"
-    // btnBack.addActionListener(new ActionListener() {
-    // @Override
-    // public void actionPerformed(ActionEvent evt) {
-    // btnbackActionPerformed(evt);
-    // }
-    // });
-
-    // // Hacer visible la ventana
-    // setVisible(true);
-    // }
 
     private JTextField codigoField;
     private JTextField nombreField;
@@ -185,6 +43,8 @@ public class Ingresar extends JFrame {
 
         // Panel superior para el botón "Regresar"
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        topPanel.add(Box.createRigidArea(new Dimension(0, 50)));
+
         topPanel.setOpaque(false); // Hacer el fondo transparente
         topPanel.add(btnBack);
         fondoPanel.add(topPanel, BorderLayout.NORTH);
@@ -203,21 +63,34 @@ public class Ingresar extends JFrame {
 
         // Campos de formulario
         JLabel codigoLabel = new JLabel("Código Producto:");
+        codigoLabel.setFont(new Font("Ink Free", Font.BOLD, 18));
         codigoField = new JTextField(20);
+        codigoField.setFont(new Font("Ink Free", Font.PLAIN, 18));
 
         JLabel nombreLabel = new JLabel("Nombre Producto:");
+        nombreLabel.setFont(new Font("Ink Free", Font.BOLD, 18));
         nombreField = new JTextField(20);
+        nombreField.setFont(new Font("Ink Free", Font.PLAIN, 18));
 
         JLabel precioLabel = new JLabel("Precio Unitario:");
+        precioLabel.setFont(new Font("Ink Free", Font.BOLD, 18));
         precioField = new JTextField(20);
+        precioField.setFont(new Font("Ink Free", Font.PLAIN, 18));
 
         JLabel cantidadLabel = new JLabel("Cantidad Producto:");
+        cantidadLabel.setFont(new Font("Ink Free", Font.BOLD, 18));
         cantidadField = new JTextField(20);
+        cantidadField.setFont(new Font("Ink Free", Font.PLAIN, 18));
 
         JLabel fechaVencimientoLabel = new JLabel("Fecha Vencimiento:");
+        fechaVencimientoLabel.setFont(new Font("Ink Free", Font.BOLD, 18));
+
         String[] meses = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre",
                 "Octubre", "Noviembre", "Diciembre" };
         mesCombo = new JComboBox<>(meses);
+
+        mesCombo.setFont(new Font("Ink Free", Font.PLAIN, 18));
+        
 
         Integer[] anios = new Integer[21];
         currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
@@ -225,9 +98,31 @@ public class Ingresar extends JFrame {
             anios[i] = currentYear + i;
         }
         anioCombo = new JComboBox<>(anios);
+        anioCombo.setFont(new Font("Ink Free", Font.PLAIN, 18));
+        // Dar formarto a,mlos field de los campos
+        codigoField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.GRAY),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        nombreField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.GRAY),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        precioField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.GRAY),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+        cantidadField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.GRAY),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
+        // fondo transparente
+        codigoField.setOpaque(false);
+        nombreField.setOpaque(false);
+        precioField.setOpaque(false);
+        cantidadField.setOpaque(false);
 
         // Botón para agregar producto
         JButton agregarButton = new JButton("Agregar Producto");
+        agregarButton.setFont(new Font("Ink Free", Font.PLAIN, 18));
+
         agregarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -268,6 +163,7 @@ public class Ingresar extends JFrame {
         fechaPanel.add(mesCombo);
         fechaPanel.add(anioCombo);
         formPanel.add(fechaPanel, gbc);
+        fechaPanel.setOpaque(false); 
 
         gbc.gridx = 0;
         gbc.gridy = 5;
@@ -341,5 +237,20 @@ public class Ingresar extends JFrame {
 
     public static void main(String[] args) {
         new Ingresar();
+    }
+
+    // Clase interna para el fondo de pantalla
+    class FondoPanel extends JPanel {
+        private Image fondo;
+
+        public FondoPanel(String rutaImagen) {
+            fondo = new ImageIcon(rutaImagen).getImage();
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 }
