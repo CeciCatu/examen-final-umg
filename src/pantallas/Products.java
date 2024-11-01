@@ -32,7 +32,7 @@ public class Products extends JFrame {
                 setIconImage(icono.getImage());
 
                 // Crear panel de fondo con la imagen
-                FondoPanel fondoPanel = new FondoPanel("src/assets/fondo.jpg");
+                FondoPanel fondoPanel = new FondoPanel("src/assets/rosita.png");
                 fondoPanel.setLayout(new GridBagLayout());
 
                 initComponents(fondoPanel);
@@ -43,43 +43,49 @@ public class Products extends JFrame {
         }
 
         private void initComponents(JPanel fondoPanel) {
+
                 // Crear y configurar componentes
                 btnBack = new JButton("Regresar");
                 btnBack.setFont(new Font("Ink Free", Font.PLAIN, 14));
 
                 lblCount = new JLabel("10"); // Ejemplo de valor inicial
-                lblCount.setFont(new Font("Ink Free", Font.PLAIN, 14));
+                lblCount.setFont(new Font("Ink Free", Font.BOLD, 18));
                 lblTotal = new JLabel("10"); // Ejemplo de valor inicial
-                lblTotal.setFont(new Font("Ink Free", Font.PLAIN, 14));
+                lblTotal.setFont(new Font("Ink Free", Font.BOLD, 18));
 
                 JLabel lblRegistros = new JLabel("Registros:");
-                lblRegistros.setFont(new Font("Ink Free", Font.PLAIN, 14));
-                JLabel lblGranTotal = new JLabel("Gran Total:");
-                lblGranTotal.setFont(new Font("Ink Free", Font.PLAIN, 14));
+                lblRegistros.setFont(new Font("Ink Free", Font.BOLD, 18));
+                JLabel lblGranTotal = new JLabel("Gran Total: Q ");
+                lblGranTotal.setFont(new Font("Ink Free", Font.BOLD, 18));
 
-                // Panel para el botón "Regresar"
+                // Panel para el botón "Regresar" con fondo transparente
                 JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                backPanel.setBackground(Color.WHITE);
+                backPanel.setOpaque(false); // Fondo transparente
                 backPanel.add(btnBack);
 
-                // Panel para "Registros" y "Gran Total" en una sola fila
-                JPanel totalsPanel = new JPanel(new BorderLayout());
-                totalsPanel.setBackground(Color.WHITE);
+                backPanel.add(Box.createRigidArea(new Dimension(0, 50)));
 
-                // Crear paneles para alinear los textos en los extremos
-                JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-                leftPanel.setBackground(Color.WHITE);
-                leftPanel.add(lblRegistros);
-                leftPanel.add(lblCount);
+                // Panel para "Registros" y "Gran Total" en disposición vertical y fondo
+                // transparente
+                JPanel totalsPanel = new JPanel();
+                totalsPanel.setLayout(new BoxLayout(totalsPanel, BoxLayout.Y_AXIS));
+                totalsPanel.setOpaque(false); // Fondo transparente
 
-                JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-                rightPanel.setBackground(Color.WHITE);
-                rightPanel.add(lblGranTotal);
-                rightPanel.add(lblTotal);
+                // Crear paneles para "Registros" y "Gran Total" con sus valores y fondo
+                // transparente
+                JPanel registrosPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                registrosPanel.setOpaque(false); // Fondo transparente
+                registrosPanel.add(lblRegistros);
+                registrosPanel.add(lblCount);
 
-                // Añadir los paneles izquierdo y derecho al totalsPanel
-                totalsPanel.add(leftPanel, BorderLayout.WEST);
-                totalsPanel.add(rightPanel, BorderLayout.EAST);
+                JPanel granTotalPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                granTotalPanel.setOpaque(false); // Fondo transparente
+                granTotalPanel.add(lblGranTotal);
+                granTotalPanel.add(lblTotal);
+
+                // Añadir los paneles al totalsPanel en columna
+                totalsPanel.add(registrosPanel);
+                totalsPanel.add(granTotalPanel);
 
                 // Configuración de la tabla
                 modelo = new DefaultTableModel(new Object[][] {}, new String[] {
@@ -106,9 +112,9 @@ public class Products extends JFrame {
                                         boolean hasFocus, int row, int column) {
                                 Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus,
                                                 row, column);
-                                cell.setBackground(new Color(100, 100, 100, 150));
-                                cell.setForeground(Color.WHITE);
-                                cell.setFont(new Font("Arial", Font.PLAIN, 16));
+                                cell.setBackground(new Color(100, 100, 100, 75));
+                                // cell.setForeground(Color.WHITE);
+                                cell.setFont(new Font("Ink Free", Font.BOLD, 16));
 
                                 if (cell instanceof JLabel) {
                                         ((JLabel) cell).setHorizontalAlignment(JLabel.LEFT);
