@@ -1,193 +1,3 @@
-// // package pantallas;
-
-// // import java.awt.Font;
-// // import java.awt.GridBagLayout;
-
-// // import javax.swing.ImageIcon;
-// // import javax.swing.JFrame;
-// // import javax.swing.JLabel;
-// // import javax.swing.SwingConstants;
-
-// // public class Ingresar extends JFrame {
-
-// //     public Ingresar() {
-
-// //         // Configuración de la ventana
-// //         setTitle("Ingresar Producto");
-// //         setSize(500, 600);
-// //         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-// //         setLocationRelativeTo(null); // Centrar la ventana
-
-// //         // Colocar el icono en la ventana
-// //         ImageIcon icono = new ImageIcon("src/assets/icono.png");
-// //         setIconImage(icono.getImage());
-
-// //         // Crear panel de fondo con la imagen
-// //         FondoPanel fondoPanel = new FondoPanel("src/assets/login.jpg");
-// //         fondoPanel.setLayout(new GridBagLayout()); // Centrar componentes
-
-// //         // Crear el label "Menú"
-// //         JLabel menuLabel = new JLabel("Menú");
-// //         menuLabel.setFont(new Font("Ink Free", Font.PLAIN, 24)); // Usar la misma fuente que en el login
-// //         menuLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-// //         // Hacer visible la ventana
-// //         setVisible(true);
-
-// //         // Añadir el panel al JFrame
-// //         add(fondoPanel);
-// //     }
-
-// // }
-
-// package pantallas;
-
-// import java.awt.*;
-// import javax.swing.*;
-
-// import config.Conection;
-
-// import java.awt.event.ActionEvent;
-// import java.awt.event.ActionListener;
-// import java.sql.Connection;
-// import java.sql.PreparedStatement;
-// import java.sql.SQLException;
-
-// public class Ingresar extends JFrame {
-
-//     private JTextField codigoField;
-//     private JTextField nombreField;
-//     private JTextField precioField;
-//     private JTextField cantidadField;
-//     private JTextField fechaVencimientoField;
-
-//     public Ingresar() {
-//         // Configuración de la ventana
-//         setTitle("Ingresar Producto");
-//         setSize(500, 600);
-//         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//         setLocationRelativeTo(null); // Centrar la ventana
-
-//         // Colocar el icono en la ventana
-//         ImageIcon icono = new ImageIcon("src/assets/icono.png");
-//         setIconImage(icono.getImage());
-
-//         // Crear panel de fondo con la imagen
-//         FondoPanel fondoPanel = new FondoPanel("src/assets/login.jpg");
-//         fondoPanel.setLayout(new GridBagLayout()); // Centrar componentes
-
-//         // Crear etiquetas y campos de texto
-//         JLabel codigoLabel = new JLabel("Código Producto:");
-//         codigoField = new JTextField(20);
-
-//         JLabel nombreLabel = new JLabel("Nombre Producto:");
-//         nombreField = new JTextField(20);
-
-//         JLabel precioLabel = new JLabel("Precio Unitario:");
-//         precioField = new JTextField(20);
-
-//         JLabel cantidadLabel = new JLabel("Cantidad Producto:");
-//         cantidadField = new JTextField(20);
-
-//         JLabel fechaVencimientoLabel = new JLabel("Fecha Vencimiento:");
-//         fechaVencimientoField = new JTextField(20);
-
-//         // Botón para agregar producto
-//         JButton agregarButton = new JButton("Agregar Producto");
-//         agregarButton.addActionListener(new ActionListener() {
-//             @Override
-//             public void actionPerformed(ActionEvent e) {
-//                 agregarProducto();
-//             }
-//         });
-
-//         // Añadir componentes al panel
-//         GridBagConstraints gbc = new GridBagConstraints();
-//         gbc.gridx = 0;
-//         gbc.gridy = 0;
-//         fondoPanel.add(codigoLabel, gbc);
-//         gbc.gridx = 1;
-//         fondoPanel.add(codigoField, gbc);
-
-//         gbc.gridx = 0;
-//         gbc.gridy = 1;
-//         fondoPanel.add(nombreLabel, gbc);
-//         gbc.gridx = 1;
-//         fondoPanel.add(nombreField, gbc);
-
-//         gbc.gridx = 0;
-//         gbc.gridy = 2;
-//         fondoPanel.add(precioLabel, gbc);
-//         gbc.gridx = 1;
-//         fondoPanel.add(precioField, gbc);
-
-//         gbc.gridx = 0;
-//         gbc.gridy = 3;
-//         fondoPanel.add(cantidadLabel, gbc);
-//         gbc.gridx = 1;
-//         fondoPanel.add(cantidadField, gbc);
-
-//         gbc.gridx = 0;
-//         gbc.gridy = 4;
-//         fondoPanel.add(fechaVencimientoLabel, gbc);
-//         gbc.gridx = 1;
-//         fondoPanel.add(fechaVencimientoField, gbc);
-
-//         gbc.gridx = 0;
-//         gbc.gridy = 5;
-//         gbc.gridwidth = 2; // Para que el botón ocupe dos columnas
-//         fondoPanel.add(agregarButton, gbc);
-
-//         // Añadir el panel al JFrame
-//         add(fondoPanel);
-
-//         // Hacer visible la ventana
-//         setVisible(true);
-//     }
-
-//     private void agregarProducto() {
-//         String codigo = codigoField.getText();
-//         String nombre = nombreField.getText();
-//         String precio = precioField.getText();
-//         String cantidad = cantidadField.getText();
-//         String fechaVencimiento = fechaVencimientoField.getText();
-
-//         // Aquí debes agregar la lógica para insertar el producto en la base de datos
-//         String sql = "INSERT INTO productos (CODIGOPRODUCTO, NOMBREPRODUCTO, PRECIOUNITARIO, CANTIDADPRODUCTO, FECHAVENCIMIENTO) VALUES (?, ?, ?, ?, ?)";
-
-//         new Conection();
-//         try (Connection connection = Conection.connect(); // Establecer la conexión
-//              PreparedStatement statement = connection.prepareStatement(sql)) {
-
-//             statement.setString(1, codigo);
-//             statement.setString(2, nombre);
-//             statement.setDouble(3, Double.parseDouble(precio));
-//             statement.setInt(4, Integer.parseInt(cantidad));
-//             statement.setString(5, fechaVencimiento);
-
-//             // Ejecutar la inserción
-//             statement.executeUpdate();
-//             JOptionPane.showMessageDialog(this, "Producto agregado exitosamente");
-
-//             // Limpiar campos después de agregar
-//             codigoField.setText("");
-//             nombreField.setText("");
-//             precioField.setText("");
-//             cantidadField.setText("");
-//             fechaVencimientoField.setText("");
-
-//         } catch (SQLException ex) {
-//             JOptionPane.showMessageDialog(this, "Error al agregar el producto: " + ex.getMessage());
-//         } catch (NumberFormatException ex) {
-//             JOptionPane.showMessageDialog(this, "Por favor, ingresa valores numéricos válidos para precio y cantidad.");
-//         }
-//     }
-
-//     public static void main(String[] args) {
-//         new Ingresar();
-//     }
-// }
-
 package pantallas;
 
 import javax.swing.*;
@@ -208,16 +18,20 @@ public class Ingresar extends JFrame {
     private JTextField cantidadField;
     private JComboBox<String> mesCombo;
     private JComboBox<Integer> anioCombo;
+    private JButton btnBack;
+
     // Declarar la variable de instancia
     private int currentYear;
 
     public Ingresar() {
+        btnBack = new JButton("Regresar");
+        btnBack.setFont(new Font("Ink Free", Font.PLAIN, 14));
         // Obtener el año actual
         currentYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
 
         // Configuración de la ventana
         setTitle("Ingresar Producto");
-        setSize(500, 600);
+        setSize(1000, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centrar la ventana
 
@@ -226,8 +40,13 @@ public class Ingresar extends JFrame {
         setIconImage(icono.getImage());
 
         // Crear panel de fondo con la imagen
-        FondoPanel fondoPanel = new FondoPanel("src/assets/login.jpg");
+        FondoPanel fondoPanel = new FondoPanel("src/assets/rosita.png");
         fondoPanel.setLayout(new GridBagLayout()); // Centrar componentes
+
+        // Panel para el botón "Regresar" con fondo transparente
+        JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        backPanel.setOpaque(false); // Fondo transparente
+        backPanel.add(btnBack);
 
         // Crear etiquetas y campos de texto
         JLabel codigoLabel = new JLabel("Código Producto:");
@@ -267,7 +86,18 @@ public class Ingresar extends JFrame {
         });
 
         // Añadir componentes al panel
+        // GridBagConstraints gbc = new GridBagConstraints();
         GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.WEST;
+
+        // Agregar backPanel con el botón "Regresar"
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        fondoPanel.add(backPanel, gbc);
+
         gbc.gridx = 0;
         gbc.gridy = 0;
         fondoPanel.add(codigoLabel, gbc);
@@ -297,7 +127,7 @@ public class Ingresar extends JFrame {
         fondoPanel.add(fechaVencimientoLabel, gbc);
 
         gbc.gridx = 1;
-        JPanel fechaPanel = new JPanel(); // Para contener los comboBox de fecha
+        JPanel fechaPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         fechaPanel.add(mesCombo);
         fechaPanel.add(anioCombo);
         fondoPanel.add(fechaPanel, gbc);
@@ -310,8 +140,21 @@ public class Ingresar extends JFrame {
         // Añadir el panel al JFrame
         add(fondoPanel);
 
+        // Añadir acción al botón "Regresar"
+        btnBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                btnbackActionPerformed(evt);
+            }
+        });
+
         // Hacer visible la ventana
         setVisible(true);
+    }
+
+    private void btnbackActionPerformed(ActionEvent evt) {
+        new Menu().setVisible(true);
+        dispose();
     }
 
     private void agregarProducto() {
