@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Eliminar",
+            "request": "launch",
+            "mainClass": "pantallas.Eliminar",
+            "projectName": "examen-final-umg_7f47d248"
+        },
+        {
+            "type": "java",
             "name": "UpdateProduct",
             "request": "launch",
             "mainClass": "pantallas.UpdateProduct",
