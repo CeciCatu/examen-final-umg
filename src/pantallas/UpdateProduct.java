@@ -64,9 +64,11 @@ public class UpdateProduct extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // txtSearch = new JTextField(10);
+        JPanel lineaDivisora = new JPanel();
+        lineaDivisora.setBackground(new Color(200, 162, 200)); // Color lila
+        lineaDivisora.setPreferredSize(new Dimension(0, 10)); // Ancho dinámico, alto fijo de 5px
 
-        JLabel buscarLabel = new JLabel("Escribe el Código del Producto:");
+        JLabel buscarLabel = new JLabel("Código del Producto:");
         buscarLabel.setFont(new Font("Ink Free", Font.BOLD, 18));
         txtSearch = new JTextField(20);
         txtSearch.setFont(new Font("Ink Free", Font.PLAIN, 18));
@@ -75,7 +77,6 @@ public class UpdateProduct extends JFrame {
         txtSearch.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.GRAY),
                 BorderFactory.createEmptyBorder(5, 5, 5, 5)));
-        // Agregar componentes
 
         // Agregar componentes al formPanel
         gbc.gridx = 0;
@@ -83,74 +84,104 @@ public class UpdateProduct extends JFrame {
         formPanel.add(buscarLabel, gbc);
         gbc.gridx = 1;
         formPanel.add(txtSearch, gbc);
-        // formPanel.add(codigoField, gbc);
+
+        // terce elemento
+        gbc.gridx = 2;
+        JButton buscarButton = new JButton("Buscar");
+        buscarButton.setFont(new Font("Ink Free", Font.BOLD, 18));
+        buscarButton.setBackground(Color.GRAY);
+        buscarButton.setForeground(Color.WHITE); // Texto blanco para mejor contraste
+        buscarButton.setFocusPainted(false); // Elimina el borde de enfoque al hacer clic
+        buscarButton.setBorder(BorderFactory.createEmptyBorder()); // Sin bordes
+        buscarButton.setPreferredSize(new Dimension(150, 35)); // Ancho de 150 y alto de 40
+        formPanel.add(buscarButton, gbc);
+
+        // Botón "Limpiar" cuarto elemento
+        gbc.gridx = 3;
+        JButton limpiarButton = new JButton("Limpiar");
+        limpiarButton.setFont(new Font("Ink Free", Font.BOLD, 18));
+        limpiarButton.setBackground(Color.GRAY);
+        limpiarButton.setForeground(Color.WHITE);
+        limpiarButton.setFocusPainted(false);
+        limpiarButton.setBorder(BorderFactory.createEmptyBorder());
+        limpiarButton.setPreferredSize(new Dimension(150, 35)); // Ancho de 150 y alto de 40
+
+        // Añadir el botón "Limpiar"
+        formPanel.add(limpiarButton, gbc);
+
+        // Agregar la línea divisoria al contenedor
+        // Configuración de GridBagConstraints para la línea divisoria
+        gbc.gridx = 0;
+        gbc.gridy++; // Ajustar según tu diseño
+        gbc.gridwidth = GridBagConstraints.REMAINDER; // Ocupar toda la fila
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 0); // Ajustar márgenes según se necesite
+        formPanel.add(lineaDivisora, gbc);
 
         // JPanel jPanel1 = new JPanel(new GridBagLayout());
-        // txtCode = new JTextField(10);
-        // txtName = new JTextField(10);
-        // txtCantidad = new JTextField(10);
-        // txtPrecio = new JTextField(10);
-        // txtSearch = new JTextField(10);
-        // btnEdit = new JButton("Editar");
+        txtCode = new JTextField(10);
+        txtName = new JTextField(10);
+        txtCantidad = new JTextField(10);
+        txtPrecio = new JTextField(10);
+        btnEdit = new JButton("Editar");
         // JButton btnSearch = new JButton("Buscar");
 
-        // btnEdit.setEnabled(false);
-        // btnSearch.addActionListener(evt -> searchProduct());
-        // btnEdit.addActionListener(evt -> updateProduct());
+        btnEdit.setEnabled(false);
+        buscarButton.addActionListener(evt -> searchProduct());
+        btnEdit.addActionListener(evt -> updateProduct());
 
-        // txtCode.setEditable(false);
-        // txtName.setEditable(false);
-        // txtCantidad.setEditable(false);
-        // txtPrecio.setEditable(false);
+        txtCode.setEditable(false);
+        txtCantidad.setEditable(false);
+        txtPrecio.setEditable(false);
 
-        // // jPanel1.setBorder(BorderFactory.createTitledBorder("Editar producto"));
+        gbc.gridx = 0;
+        gbc.gridy++;
+        JLabel nomPLabel = new JLabel("Nombre:");
+        nomPLabel.setFont(new Font("Ink Free", Font.BOLD, 18));
+        formPanel.add(nomPLabel, gbc);
+        gbc.gridx = 1;
+        // caja de texto nombre
+        txtName.setEditable(false);
+        txtName.setFont(new Font("Ink Free", Font.PLAIN, 18));
+        txtName.setOpaque(false);
+        formPanel.add(txtName, gbc);
 
-        // // Configurar GridBagConstraints para posicionar los elementos en el panel
-        // GridBagConstraints gbc = new GridBagConstraints();
-        // gbc.insets = new Insets(5, 5, 5, 5);
-        // gbc.gridx = 0;
-        // gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridy++;
+        JLabel cantPLabel = new JLabel("Cantidad:");
+        cantPLabel.setFont(new Font("Ink Free", Font.BOLD, 18));
+        formPanel.add(cantPLabel, gbc);
+        gbc.gridx = 1;
+        // caja de texto cantidad
+        txtCantidad.setEditable(false);
+        txtCantidad.setFont(new Font("Ink Free", Font.PLAIN, 18));
+        txtCantidad.setOpaque(false);
+        formPanel.add(txtCantidad, gbc);
 
-        // jPanel1.add(new JLabel("Código:"), gbc);
-        // gbc.gridx = 1;
-        // jPanel1.add(txtCode, gbc);
+        gbc.gridx = 0;
+        gbc.gridy++;
+        JLabel precioPLabel = new JLabel("Precio Unitario:");
+        precioPLabel.setFont(new Font("Ink Free", Font.BOLD, 18));
+        formPanel.add(precioPLabel, gbc);
+        gbc.gridx = 1;
+        // caja de texto precio unitario
+        txtPrecio.setEditable(false);
+        txtPrecio.setFont(new Font("Ink Free", Font.PLAIN, 18));
+        txtPrecio.setOpaque(false);
+        formPanel.add(txtPrecio, gbc);
 
-        // gbc.gridx = 0;
-        // gbc.gridy++;
-        // jPanel1.add(new JLabel("Nombre:"), gbc);
-        // gbc.gridx = 1;
-        // jPanel1.add(txtName, gbc);
+        // Botón "Modificar"
+        JButton modificarButton = new JButton("Modificar");
+        modificarButton.setFont(new Font("Ink Free", Font.BOLD, 18));
+        modificarButton.setBackground(Color.GRAY);
+        modificarButton.setForeground(Color.WHITE);
+        modificarButton.setFocusPainted(false);
+        modificarButton.setBorder(BorderFactory.createEmptyBorder());
+        modificarButton.setPreferredSize(new Dimension(150, 35)); // Ancho de 150 y alto de 40
+        gbc.gridy++;
 
-        // gbc.gridx = 0;
-        // gbc.gridy++;
-        // jPanel1.add(new JLabel("Cantidad:"), gbc);
-        // gbc.gridx = 1;
-        // jPanel1.add(txtCantidad, gbc);
-
-        // gbc.gridx = 0;
-        // gbc.gridy++;
-        // jPanel1.add(new JLabel("Precio:"), gbc);
-        // gbc.gridx = 1;
-        // jPanel1.add(txtPrecio, gbc);
-
-        // gbc.gridx = 0;
-        // gbc.gridy++;
-        // jPanel1.add(new JLabel("Buscar Código:"), gbc);
-        // gbc.gridx = 1;
-        // jPanel1.add(txtSearch, gbc);
-
-        // gbc.gridx = 0;
-        // gbc.gridy++;
-        // jPanel1.add(btnEdit, gbc);
-        // gbc.gridx = 1;
-        // jPanel1.add(btnSearch, gbc);
-
-        // // Configuración del JFrame
-        // setLayout(new BorderLayout());
-        // add(jPanel1, BorderLayout.CENTER);
-        // add(btnBack, BorderLayout.SOUTH);
-
-        // pack();
+        gbc.gridx = 0;
+        formPanel.add(modificarButton, gbc);
 
         fondoPanel.add(formPanel, BorderLayout.CENTER); // Agregar el formulario al centro de fondoPanel
 
@@ -267,9 +298,9 @@ public class UpdateProduct extends JFrame {
         }
     }
 
-    // public static void main(String[] args) {
-    // SwingUtilities.invokeLater(() -> new UpdateProduct().setVisible(true));
-    // }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new UpdateProduct().setVisible(true));
+    }
 
     private void btnbackActionPerformed(ActionEvent evt) {
         new Menu().setVisible(true);

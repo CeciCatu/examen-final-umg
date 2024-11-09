@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "UpdateProduct",
+            "request": "launch",
+            "mainClass": "pantallas.UpdateProduct",
+            "projectName": "examen-final-umg_7f47d248"
+        },
+        {
+            "type": "java",
             "name": "Ingresar",
             "request": "launch",
             "mainClass": "pantallas.Ingresar",
