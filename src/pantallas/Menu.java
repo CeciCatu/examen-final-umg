@@ -98,7 +98,7 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Abrir la clase BuscarProducto
-                new Buscar().setVisible(true);
+                new BuscarCodigo().setVisible(true);
                 dispose(); // Cerrar el menú actual
             }
         });
