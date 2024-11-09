@@ -17,7 +17,6 @@ public class UpdateProduct extends JFrame {
     private JTextField txtCantidad;
     private JTextField txtPrecio;
     private JTextField txtSearch;
-    // private JButton btnEdit;
     private JButton btnBack;
 
     public UpdateProduct() {
@@ -235,7 +234,6 @@ public class UpdateProduct extends JFrame {
                     txtName.setEditable(true);
                     txtPrecio.setEditable(true);
                     txtCantidad.setEditable(true);
-                    // btnEdit.setEnabled(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Producto no encontrado.");
                     clearFields();
@@ -292,7 +290,6 @@ public class UpdateProduct extends JFrame {
         txtPrecio.setText("");
         txtCantidad.setText("");
         txtSearch.setText("");
-        // btnEdit.setEnabled(false);
     }
 
     private boolean isNumeric(String str) {
