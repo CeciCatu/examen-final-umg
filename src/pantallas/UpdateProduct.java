@@ -17,7 +17,7 @@ public class UpdateProduct extends JFrame {
     private JTextField txtCantidad;
     private JTextField txtPrecio;
     private JTextField txtSearch;
-    private JButton btnEdit;
+    // private JButton btnEdit;
     private JButton btnBack;
 
     public UpdateProduct() {
@@ -31,7 +31,7 @@ public class UpdateProduct extends JFrame {
         btnBack.setFont(new Font("Ink Free", Font.PLAIN, 14));
 
         // Configuración de la ventana
-        setTitle("Ingresar Producto");
+        setTitle("Modificar Producto");
         setSize(1000, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centrar la ventana
@@ -99,6 +99,10 @@ public class UpdateProduct extends JFrame {
         // Botón "Limpiar" cuarto elemento
         gbc.gridx = 3;
         JButton limpiarButton = new JButton("Limpiar");
+
+        //asignar funcion
+        limpiarButton.addActionListener(evt -> clearFields());
+
         limpiarButton.setFont(new Font("Ink Free", Font.BOLD, 18));
         limpiarButton.setBackground(Color.GRAY);
         limpiarButton.setForeground(Color.WHITE);
@@ -123,12 +127,8 @@ public class UpdateProduct extends JFrame {
         txtName = new JTextField(10);
         txtCantidad = new JTextField(10);
         txtPrecio = new JTextField(10);
-        btnEdit = new JButton("Editar");
-        // JButton btnSearch = new JButton("Buscar");
 
-        btnEdit.setEnabled(false);
         buscarButton.addActionListener(evt -> searchProduct());
-        btnEdit.addActionListener(evt -> updateProduct());
 
         txtCode.setEditable(false);
         txtCantidad.setEditable(false);
@@ -144,6 +144,10 @@ public class UpdateProduct extends JFrame {
         txtName.setEditable(false);
         txtName.setFont(new Font("Ink Free", Font.PLAIN, 18));
         txtName.setOpaque(false);
+
+        txtName.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.GRAY),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         formPanel.add(txtName, gbc);
 
         gbc.gridx = 0;
@@ -156,6 +160,10 @@ public class UpdateProduct extends JFrame {
         txtCantidad.setEditable(false);
         txtCantidad.setFont(new Font("Ink Free", Font.PLAIN, 18));
         txtCantidad.setOpaque(false);
+
+        txtCantidad.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.GRAY),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         formPanel.add(txtCantidad, gbc);
 
         gbc.gridx = 0;
@@ -168,10 +176,18 @@ public class UpdateProduct extends JFrame {
         txtPrecio.setEditable(false);
         txtPrecio.setFont(new Font("Ink Free", Font.PLAIN, 18));
         txtPrecio.setOpaque(false);
+
+        txtPrecio.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.GRAY),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)));
+
         formPanel.add(txtPrecio, gbc);
 
         // Botón "Modificar"
         JButton modificarButton = new JButton("Modificar");
+
+        modificarButton.addActionListener(evt -> updateProduct());
+
         modificarButton.setFont(new Font("Ink Free", Font.BOLD, 18));
         modificarButton.setBackground(Color.GRAY);
         modificarButton.setForeground(Color.WHITE);
@@ -219,7 +235,7 @@ public class UpdateProduct extends JFrame {
                     txtName.setEditable(true);
                     txtPrecio.setEditable(true);
                     txtCantidad.setEditable(true);
-                    btnEdit.setEnabled(true);
+                    // btnEdit.setEnabled(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Producto no encontrado.");
                     clearFields();
@@ -258,6 +274,10 @@ public class UpdateProduct extends JFrame {
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
                 JOptionPane.showMessageDialog(this, "Producto actualizado correctamente.");
+                //Buscar producto actualizado
+                searchProduct();
+                //Limpiar campos
+                // clearFields();
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo actualizar el producto.");
             }
@@ -271,7 +291,8 @@ public class UpdateProduct extends JFrame {
         txtName.setText("");
         txtPrecio.setText("");
         txtCantidad.setText("");
-        btnEdit.setEnabled(false);
+        txtSearch.setText("");
+        // btnEdit.setEnabled(false);
     }
 
     private boolean isNumeric(String str) {
