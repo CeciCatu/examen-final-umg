@@ -10,7 +10,7 @@ public class Menu extends JFrame {
     public Menu() {
         // Configuración de la ventana
         setTitle("Menú Principal");
-        setSize(500, 600);
+        setSize(500, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centrar la ventana
 
@@ -33,6 +33,7 @@ public class Menu extends JFrame {
         JButton buscarProductoButton = new JButton("Buscar producto");
         JButton modificarProductoButton = new JButton("Modificar producto");
         JButton eliminarProductoButton = new JButton("Eliminar producto");
+        JButton transaccionButton = new JButton("Realizar Venta");
         JButton salirButton = new JButton("Salir del menú");
 
         // Cambiar el estilo de los botones
@@ -41,6 +42,7 @@ public class Menu extends JFrame {
         buscarProductoButton.setFont(new Font("Ink Free", Font.PLAIN, 16));
         modificarProductoButton.setFont(new Font("Ink Free", Font.PLAIN, 16));
         eliminarProductoButton.setFont(new Font("Ink Free", Font.PLAIN, 16));
+        transaccionButton.setFont(new Font("Ink Free", Font.PLAIN, 16));
         salirButton.setFont(new Font("Ink Free", Font.PLAIN, 16));
 
         // Configurar el layout
@@ -67,8 +69,9 @@ public class Menu extends JFrame {
         gbc.gridy = 7;
         fondoPanel.add(eliminarProductoButton, gbc);
         gbc.gridy = 8;
+        fondoPanel.add(transaccionButton, gbc);
+        gbc.gridy = 9;
         fondoPanel.add(salirButton, gbc);
-
         // Añadir el panel al JFrame
         add(fondoPanel);
 
@@ -103,25 +106,19 @@ public class Menu extends JFrame {
         modificarProductoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    new UpdateProduct().setVisible(true);
-                    dispose(); // Cerrar el menú actual
-                    System.out.println("Ventana UpdateProduct abierta"); // Mensaje para verificar
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Error al abrir la ventana: " + ex.getMessage());
-                }
+                new UpdateProduct().setVisible(true);
+                dispose(); // Cerrar el menú actual
             }
         });
 
-        // modificarProductoButton.addActionListener(new ActionListener() {
-        // @Override
-        // public void actionPerformed(ActionEvent e) {
-        // // Abrir la clase ModificarProducto
-        // new UpdateProduct().setVisible(true);
-        // dispose(); // Cerrar el menú actual
-        // }
-        // });
+        transaccionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Abrir la clase VerProductos
+                new Products().setVisible(true);
+                dispose(); // Cerrar el menú actual
+            }
+        });
 
         eliminarProductoButton.addActionListener(new ActionListener() {
             @Override
